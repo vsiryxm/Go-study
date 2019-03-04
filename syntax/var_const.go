@@ -32,6 +32,9 @@ func main()  {
     )
     fmt.Printf("yyy1 = %d, xxx1 = %d\n", yyy1, xxx1) //%d为数字占位符
 
+    yang := "阳阳阳"
+    fmt.Printf("推导定义yang = %s\n", yang)
+
     fmt.Println("常量定义：")
     const myname = "海阳之新"
     fmt.Println(myname)
