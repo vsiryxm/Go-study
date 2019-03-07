@@ -1,4 +1,4 @@
-package main //在main.go文件中调用CrosAccess函数，执行go  main.go func.go可以完成函数调用
+package main //在main.go文件中调用CrosAccess函数，执行go build main.go func.go可以完成函数调用
 
 import "fmt"
 
