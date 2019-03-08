@@ -36,20 +36,33 @@ func main() {
     //s4[2] = 234
     printSlice("s4", s4)
 
-    s5 := s[:2] //切出一片来给一个新数组
+    s5 := s[:2] //切出一片来给一个新数组，实际是一个引用
+    fmt.Println("s[0]的内存地址：", &s[0]) //输出s[0]的内存地址
+    fmt.Println("s5[0]的内存地址：", &s5[0]) //输出s5[0]的内存地址，与s[0]是一样的
     printSlice("s5", s5)
     s[1] = 111 //改变s[1]的值后，s5的值也发生了变化，说明s5的值是s的一个引用地址，也可以说是一个数组指针，但实际上还是一个切片
     printSlice("s5", s5)
-
-    fmt.Printf("s5是一个 %v 切片类型", reflect.TypeOf(s5)) //返回[]int，说明s5是一个切片类型，个人理解相当于在s上套了个壳，s5没有实质内容，只是存了s的引用地址
+    fmt.Printf("s5是一个 %v 切片类型", reflect.TypeOf(s5)) //返回[]int
 
     //切片扩容操作
     //容量是根据切片上一次的长度的倍数来扩展的
     fmt.Println("\n---切片扩容操作---")
     s = append(s, 10) //上一次s的长度为9，容量为9，现在加入1个元素后，容量不够用了，扩展到len*2，长度+1
+    fmt.Println("s扩容前的内存地址：", &s[0]) //输出s的内存地址
     printSlice("s", s)
     s = append(s, 11,12,13,14,15,16,17,18,19) //上一次s的长度为10，容量为18，现在加入9个元素后，容量不够用了，扩展到上一次容量*2，长度+1
+    fmt.Println("s扩容后的内存地址：", &s[0])
+    //fmt.Printf("s扩容后的内存地址：%p\n", s) //在扩容后，再次输出s的内存地址，两次不一样，说明开辟了新的内存空间，旧的内存废弃回收
     printSlice("s", s)
+
+    //拼接两个切片
+    yy := []int {1, 2, 3}
+    xx := []int {4, 5, 6}
+    mm := append(yy, xx...)
+    fmt.Printf("yy的内存地址：%p\n", yy)
+    fmt.Printf("mm的内存地址：%p\n", mm)
+    printSlice("mm", mm)
+
 
     fmt.Println("\n---切片复制操作---")
     s_cp := make([]int, len(s), cap(s))

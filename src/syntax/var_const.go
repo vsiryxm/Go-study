@@ -76,7 +76,7 @@ func main()  {
         bb = len(aa)
         cc = unsafe.Sizeof(aa) //需要导入unsafe包，计算变量常量在内存占用的字节
     )
-    fmt.Println(aa, bb, cc)
+    fmt.Println(aa, bb, cc) // abc 3 16
     //cc=16 字符串类型在 go 里是个结构, 包含指向底层数组的指针和长度,这两部分每部分都是 8 个字节，所以字符串类型大小为 16 个字节。
 
     //iota是Go的一个特殊常量，可以认为是一个可以被编译器修改的常量。
@@ -91,7 +91,7 @@ func main()  {
 
     const (
         aaa1 = 1
-        bbb1
+        bbb1 //未赋值则沿用上一个常量的值
         ccc1
     )
     fmt.Println(aaa1, bbb1, ccc1) //1 1 1

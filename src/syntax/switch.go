@@ -53,7 +53,7 @@ func main()  {
 
     //用于 type-switch 来判断某个 interface 变量中实际存储的变量类型。
     var x interface{}
-    switch is_type := x.(type) { //x.(type)获取一个变量的类型  TypeOf
+    switch is_type := x.(type) { //x.(type)获取一个变量的类型
         case byte, int8: //多个值匹配的用法
             fmt.Printf("myname变量是%T型", is_type)
         case string:
