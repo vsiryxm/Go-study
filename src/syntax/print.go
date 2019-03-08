@@ -10,7 +10,8 @@ func main()  {
     fmt.Println("使用Println输出：字符串 ", 123, true, arr, ' ',aaa(), "\n")
     fmt.Printf("使用Printf输出：%s，整型：%d，逻辑型：%v，数组：%v，空串：%s，函数返回：%d\n", "字符串", 123, true, arr, " ",aaa())
     //fmt.Printf(aaa()); //会报错，不能这样直接输出，必须使用占位符配合输出
-
+    n := 234
+    fmt.Print(fmt.Errorf("出错了", n));
 }
 
 func aaa() (int32) {

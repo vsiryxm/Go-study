@@ -1,3 +1,8 @@
+/* 函数声明 */
+//通过 func 关键字来进行函数的声明。
+//在Go语言中，使用大小写来决定该常量、变量、类型、接口、结构或函数是否可以被外部包所调用：
+//函数名首字母小写即为 private，函数名首字母大写即为 public
+
 package main
 
 import (
@@ -18,7 +23,7 @@ func main() {
 
 }
 
-func multiReturn(a int64) (int64, int64, int64, string) {
+func multiReturn(a int64) (int64, int64, int64, string) { //小写开头的函数相当于private
     b, c, d := 2, 3, "this is string"
     return a, int64(b), int64(c), d
 }
