@@ -32,6 +32,8 @@ src
 
 ├─────print.go 系统输出函数、占位符
 
+├─────input.go 从键盘获取一个输入值
+
 ├─────slice.go 分片追加、扩容、拷贝
 
 ├─────slice_append.go 理解分片append函数

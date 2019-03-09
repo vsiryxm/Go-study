@@ -7,6 +7,9 @@ import (
 )
 
 func main() {
+	var a int = 650
+	b := string(a)
+	fmt.Println(b)
 
 	base()   //算术运算符
 	guanxi() //关系运算符

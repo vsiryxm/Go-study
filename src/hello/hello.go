@@ -8,6 +8,7 @@ import (
 // main函数
 func main()  { // 代码块由“{”和“}”包裹
     fmt.Printf("Hello World!\nHello Simon!\n")
+
 }
 
 

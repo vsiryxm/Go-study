@@ -4,6 +4,12 @@
 //通过 type 关键字来进行结构(struct)和接口(interface)的声明。
 //通过 func 关键字来进行函数的声明。
 
+//常量的值在编译时就已经确定
+//常量的定义格式与变量基本相同
+//等号右侧必须是常量或者常量表达式
+//常量表达式中的函数必须是内置函数
+
+
 package main
 
 import (
@@ -77,7 +83,9 @@ func main() {
 	fmt.Println(aa, bb, cc) // abc 3 16
 	//cc=16 字符串类型在 go 里是个结构, 包含指向底层数组的指针和长度,这两部分每部分都是 8 个字节，所以字符串类型大小为 16 个字节。
 
-	//iota是Go的一个特殊常量，可以认为是一个可以被编译器修改的常量。
+	//iota是Go的一个特殊常量，可以认为是一个可以被编译器修改的常量
+	//iota是常量的计数器，从0开始，组中每定义1个常量自动递增1
+	//每遇到一个const关键字，iota就会重置为0
 	//位移 <<(乘以2的n次方)、>>(除以2的n次方)
 	const (
 		aaa = 1 << iota //iota从0开始，编译器会将其值依次自增
@@ -92,11 +100,41 @@ func main() {
 		bbb1 //未赋值则沿用上一个常量的值
 		ccc1
 	)
-	fmt.Println(aaa1, bbb1, ccc1) //1 1 1
+
+	//每遇到一个const关键字，iota就会重置为0
+	const (
+		ddd1 =iota //0
+		eee1 //1
+	)
+	fmt.Println(aaa1, bbb1, ccc1, ddd1, eee1) //1 1 1 0 1
+
+	fmt.Println("---使用iota与<<运算符实现计算机储存单位的枚举---")
+	const (
+		_ = iota //下划线可以用来做忽略不要的值
+		KB float64 = 1 << (iota * 10)
+		MB
+		GB
+		TB
+		PB
+		EB
+		ZB
+		YB
+	)
+	fmt.Println(KB)
+	fmt.Println(MB)
+	fmt.Println(GB)
+	fmt.Println(TB)
+	fmt.Println(PB)
+	fmt.Println(EB)
+	fmt.Println(ZB)
+	fmt.Println(YB)
 
 	//查看变量所在的内存地址
 	//fmt.Println(&num1)
 
 	fmt.Printf("我是全局变量quanju=%d，我可以定义在函数体外面", quanju)
-
+	var a1,b1,c1 int8 = 1,2,0
+	a1++
+	c1 =a1
+	fmt.Println(a1,b1,c1)
 }

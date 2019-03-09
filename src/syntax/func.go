@@ -25,5 +25,5 @@ func main() {
 
 func multiReturn(a int64) (int64, int64, int64, string) { //小写开头的函数相当于private
 	b, c, d := 2, 3, "this is string"
-	return a, int64(b), int64(c), d
+	return a, int64(b), int64(c), d //Go中不存在隐式转换，所有类型转换必须显式声明，且转换只能发生在两种相互兼容的类型之间
 }
