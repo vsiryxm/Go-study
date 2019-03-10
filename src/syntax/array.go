@@ -36,4 +36,29 @@ func main() {
 
 	//var numbers_cp [5]int
 	//copy(numbers_cp, numbers2) //报错arguments to copy must be slices，不支持数组复制
+
+	//定义二维数组
+	fmt.Println("\n\n定义二维数组：")
+	var arr = [3][3]int64 {
+		{1,2,3},
+		{4,5,6},
+		{7,8,9}, //如果最后一个元素不以逗号结尾，数组的右花括号不能另起一行
+		}
+	fmt.Println("\n遍历二维数组方法一：")
+	for i:=0; i<3; i++ {
+		for j:=0; j<len(arr[i]); j++ {
+			fmt.Printf("a[%d][%d]=%d ", i, j, arr[i][j])
+		}
+		fmt.Println()
+	}
+
+	fmt.Println("\n遍历二维数组方法二：")
+	for k,v := range arr  {
+		for k1,v1 := range v {
+			fmt.Printf("arr[%d][%d]=%d ", k, k1, v1)
+		}
+		fmt.Println()
+	}
+
+
 }

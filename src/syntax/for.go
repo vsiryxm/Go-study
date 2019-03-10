@@ -27,6 +27,27 @@ func main() {
         fmt.Printf("第%d个元素的值为：%d\n", k, v)
     }
 
+    fmt.Println("\n遍历二维数组方法一：")
+    var arr2 = [3][3]int64 {
+        {1,2,3},
+        {4,5,6},
+        {7,8,9}, //如果最后一个元素不以逗号结尾，数组的右花括号不能另起一行
+    }
+    for i:=0; i<3; i++ {
+        for j:=0; j<len(arr2[i]); j++ {
+            fmt.Printf("arr2[%d][%d]=%d ", i, j, arr2[i][j])
+        }
+        fmt.Println()
+    }
+
+    fmt.Println("\n遍历二维数组方法二：")
+    for k,v := range arr2  {
+        for k1,v1 := range v {
+            fmt.Printf("arr2[%d][%d]=%d ", k, k1, v1)
+        }
+        fmt.Println()
+    }
+
     fmt.Println("\n循环嵌套输出九九乘法表：")
     for m:=1; m<=9; m++ {
         for n:=1; n<=m; n++ {
