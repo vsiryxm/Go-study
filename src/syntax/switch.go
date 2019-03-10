@@ -4,7 +4,8 @@ import "fmt"
 
 /* switch特点：
 1、不同的 case 之间不使用 break 分隔，默认只会执行一个 case。
-2、如果想要执行多个 case，需要使用 fallthrough 关键字，也可用 break 终止。用了fallthrough后，后面必须还要有case或者default，不然报错
+2、使用 fallthrough 会强制执行后面的 case 语句（不会去判断下一个 case 的表达式是否为 true）。
+   用了fallthrough后，后面必须还要有case或者default，不然报错，也可用 break 终止
 3、支持多条件匹配
 */
 
@@ -23,7 +24,7 @@ func main() {
 		fmt.Println("优秀")
 		fallthrough //相当于在别的语言里不写break，比如js，程序会继续执行下一条 case，且它不会去判断下一个 case 的表达式是否为 true
 		//用了fallthrough后，后面必须还要有case或者default，不然报错，go语言官方认为如果是在最后一条case语句中就没必要写这个关键字了
-	default:
+	default: //可写可不写
 		fmt.Println("未及格")
 	}
 
@@ -35,7 +36,7 @@ func main() {
 		fmt.Println("良好")
 	case 90:
 		fmt.Println("优秀")
-	default:
+	default: //可写可不写
 		fmt.Println("未及格")
 	}
 
@@ -47,7 +48,7 @@ func main() {
 		fmt.Println("你是Ella")
 	case "大明":
 		fmt.Println("你是大明")
-	default:
+	default: //可写可不写
 		fmt.Println("辉哥")
 	}
 
@@ -62,7 +63,7 @@ func main() {
 		fmt.Printf("myname变量是%T型", is_type)
 	case bool:
 		fmt.Printf("myname变量是%T型", is_type)
-	default:
+	default: //可写可不写
 		fmt.Printf("未知类型：%T", is_type)
 	}
 

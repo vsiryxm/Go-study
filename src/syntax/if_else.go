@@ -25,6 +25,3 @@ func main() {
 
 }
 
-func ()  {
-    
-}

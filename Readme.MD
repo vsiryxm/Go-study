@@ -12,6 +12,8 @@ src
 
 ├─────var_const.go 定义变量、常量的常用方法
 
+├─────var_scope.go 变量的作用域
+
 ├─────int_uint.go 定义整型变量、范围
 
 ├─────byte_rune.go 定义别名类型（uint8）、Unicode类型
@@ -24,9 +26,13 @@ src
 
 ├─────func.go 定义和调用内部函数、调用外部包mylib/calc中的函数
 
+├─────func_callback.go 以函数变量的形式定义函数、以闭包的形式定义函数
+
 ├─────if_else.go 条件分支格式书写
 
 ├─────switch.go switch条件分支
+
+├─────for.go 定义for循环、遍历数组和切片
 
 ├─────operator.go 运算符练习
 
