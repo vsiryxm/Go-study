@@ -48,6 +48,27 @@ func main()  {
         fmt.Println("ptr3是一个空指针")
     }
 
+    fmt.Println("\n------指向结构体的指针------")
+    //定义结构体指针分四步：
+    //1、定义结构体
+    //2、定义指针
+    //3、实例化结构体
+    //4、指针指向结构体实例
+    type Person struct {
+        name string; sex rune; height uint8
+    }
+    var ouyang Person
+    ouyang.name = "欧阳"
+    ouyang.sex = '男'
+    ouyang.height = 175
+    //也可以这样赋值：ouyang := Person("欧阳", '男', 175)
+
+    var ptr4 *Person
+    ptr4 = &ouyang
+    fmt.Println(*ptr4) //输出：{欧阳 30007 175}
+    fmt.Println((*ptr4).name, (*ptr4).sex, (*ptr4).height) //按照常规写法，应该用*号去取值，与下面一行的写法等价
+    fmt.Println(ptr4.name, ptr4.sex, ptr4.height) //输出：欧阳 30007 175 Go提供了一种隐式解引用特性，可以直接用`指针名.结构字段`的形式访问值
+
 }
 
 //通过传递引用，交换两个变量的值
@@ -56,5 +77,5 @@ func swap(x *int64, y *int64) {
     //tmp = *x
     //*x = *y
     //*y = tmp
-    *x,*y = *y,*x //交换函数这样写更加简洁，也是 go 语言的特性，c++ 和 c# 是不能这么干的
+    *x,*y = *y,*x //交换语句这样写更加简洁，也是 go 语言的特性，c++ 和 c# 是不能这么干的
 }

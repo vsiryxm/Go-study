@@ -25,6 +25,12 @@ func main() {
 
 	fmt.Println(reflect.TypeOf(sum)) //输出变量类型
 
+	fmt.Println("数组的内存地址列表：")
+	for k,_ := range numbers2 {
+		fmt.Print(&numbers2[k], " ")
+	} //0xc000078030 0xc000078038 0xc000078040 0xc000078048 0xc000078050 说明数组在内存中分配不一定是连续的
+	fmt.Println()
+
 	//第三种定义方法：
 	var numbers3 = [...]int{1, 2, 3} //定义不明确元素个数的数组时，可以用省略号...
 	fmt.Println(len(numbers3))

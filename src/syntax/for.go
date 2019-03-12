@@ -27,6 +27,16 @@ func main() {
         fmt.Printf("第%d个元素的值为：%d\n", k, v)
     }
 
+    fmt.Println("\n第四种使用方法（无限循环）：")
+    var i int8
+    for {
+        if(i > 3) {
+            break
+        }
+        i++
+        fmt.Println(i)
+    }
+
     fmt.Println("\n遍历二维数组方法一：")
     var arr2 = [3][3]int64 {
         {1,2,3},

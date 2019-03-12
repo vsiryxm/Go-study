@@ -44,7 +44,11 @@ src
 
 ├─────slice.go 分片追加、扩容、拷贝
 
+├─────map.go 定义、遍历、删除哈希数组
+
 ├─────slice_append.go 理解分片append函数
+
+├─────find_error.go 一起来找茬
 
 ├──mylib 我的自定义包
 

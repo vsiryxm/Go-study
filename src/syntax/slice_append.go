@@ -1,4 +1,5 @@
 /* 深入理解切片的append函数 */
+//参考：https://blog.golang.org/go-slices-usage-and-internals
 
 package main
 
