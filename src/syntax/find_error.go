@@ -18,7 +18,7 @@ func main()
     var m float32 = 1.1
     n := (int)a //类型强转
 
-    println("Hello World")
+    println("Hello World") //println和print都为内置函数
     Println(aaa())
     Printf(aaa())
     Println(cc, dd, m, n)

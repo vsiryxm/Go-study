@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+    "fmt"
+    "unsafe"
+)
 
 func main()  {
 
@@ -47,7 +50,26 @@ func main()  {
     //编译报错：cannot use make(T) (type T) as type map[string]float64 in assignment
     //原因：因为T的底层类型是map[S]float64，而不是map[string]float64
 
-    //4、
+    //5、不支持隐式类型转换
+    //var b byte = 100
+    //var n int = b //不支持隐式类型转换
+    //var _ int = int(b)
+
+    //6、不支持非bool类型作bool使用
+    //var a2 := 100
+    //if a2 {
+    //    fmt.Println(a)
+    //}
+
+    //7、可以在 unsafe.Pointer 和任意类型指针间进⾏转换。
+    x := 0x12345678
+    p := unsafe.Pointer(&x) // *int -> Pointer
+    n := (*[4]byte)(p) // Pointer -> *[4]byte  //没搞明白*[4]byte，不知道是不是数组指针?
+    for i := 0; i < len(n); i++ {
+        fmt.Printf("%X ", n[i])
+    } //输出：78 56 34 12
+
+
 
 }
 

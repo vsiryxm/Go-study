@@ -105,8 +105,9 @@ func main() {
 	const (
 		ddd1 =iota //0
 		eee1 //1
+		fff1,fff2,fff3 = iota,iota,iota //如果是在同一行赋值iota，那么iota是同一个值，这里返回2 2 2
 	)
-	fmt.Println(aaa1, bbb1, ccc1, ddd1, eee1) //1 1 1 0 1
+	fmt.Println(aaa1, bbb1, ccc1, ddd1, eee1, fff1, fff2, fff3) //1 1 1 0 1 2 2 2
 
 	fmt.Println("---使用iota与<<运算符实现计算机储存单位的枚举---")
 	const (

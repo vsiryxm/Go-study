@@ -20,7 +20,7 @@ func main() {
 	printSlice("s2", s2)
 
 	//var s3 []int = {1,2,3} //错误的写法
-	var s3 []int //只定义不赋值，则len为0，cap为0，也叫空切片
+	var s3 []int //只定义不赋值，则值为nil，len为0，cap为0，也叫空切片
 	printSlice("s3", s3)
 	if s3 == nil { //if后面如果只有一个表达式，加上括号是不报错的
 		fmt.Println("切片s3是空的")

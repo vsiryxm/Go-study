@@ -10,4 +10,9 @@ func main() {
 	var sex rune = '男'
 	fmt.Printf("字符 '%c' 的Unicode代码点是：%s\n", sex, "U+7537")
 
+	//Unicode编码表中文查询：http://unicode-table.com/cn/
+	var me rune = '\u6211' //我  支持\uFFFF、\U7FFFFFFF、\xFF格式
+	fmt.Println(me)
+
+
 }

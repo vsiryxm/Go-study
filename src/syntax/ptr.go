@@ -4,6 +4,7 @@ package main
 
 import (
     "fmt"
+    "unsafe"
 )
 
 func main()  {
@@ -12,6 +13,7 @@ func main()  {
     var a int8 = 34
     var ptr *int8               //定义指针用*号
     ptr = &a                    //获取变量a的内存地址
+    //ptr++ //指针不能做加减法运算，编译报错
     fmt.Println("a的值为：", a)     //34
     fmt.Println("*ptr为：", *ptr) //34
     fmt.Println("ptr为：", ptr)   //0xc0000541c8
@@ -68,6 +70,16 @@ func main()  {
     fmt.Println(*ptr4) //输出：{欧阳 30007 175}
     fmt.Println((*ptr4).name, (*ptr4).sex, (*ptr4).height) //按照常规写法，应该用*号去取值，与下面一行的写法等价
     fmt.Println(ptr4.name, ptr4.sex, ptr4.height) //输出：欧阳 30007 175 Go提供了一种隐式解引用特性，可以直接用`指针名.结构字段`的形式访问值
+
+
+    //可以在 unsafe.Pointer 和任意类型指针间进⾏转换。
+    x := 0x12345678
+    p := unsafe.Pointer(&x) // *int -> Pointer
+    n := (*[4]byte)(p) // Pointer -> *[4]byte //没搞明白*[4]byte，不知道是不是数组指针?
+    for i := 0; i < len(n); i++ {
+        fmt.Printf("%X ", n[i])
+    } //输出：78 56 34 12
+
 
 }
 
