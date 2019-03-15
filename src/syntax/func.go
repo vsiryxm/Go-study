@@ -32,6 +32,17 @@ func main() {
 	swap(&aa, &bb)
 	fmt.Printf("交换后，aa=%d，bb=%d\n", aa, bb)
 
+	fmt.Println("--通过匿名函数的形式定义函数--")
+	fn := func() { println("Hello, World！") }
+	fn()
+
+	fmt.Println("--很怪的用法：定义调用函数数组--")
+	fns := [](func(x int) int) {
+		func(x int) int { return x+1 },
+		func(x int) int { return x+2 },
+	}
+	println(fns[1](100))
+
 }
 
 func multiReturn(a int64) (int64, int64, int64, string) { //小写开头的函数相当于private
