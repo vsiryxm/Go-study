@@ -37,8 +37,8 @@ func main()  {
     var ptr1 *Person //定义结构体指针，格式：var 指针名称 *结构体名
     ptr1 = &ouyang
 
-    fmt.Println(ptr1) //输出的不是内存地址，而是&{欧阳 30007 175}
-    fmt.Println(*ptr1) //输出的是{欧阳 30007 175}，而不是内存地址
+    fmt.Printf("指针指向的内存地址为：%p\n", ptr1) //需要用格式输出，否则显示的是&{欧阳 30007 175}
+    fmt.Println(*ptr1) //输出内容，但这里的内容是一个结构体{欧阳 30007 175}
     fmt.Println((*ptr1).name, (*ptr1).sex, (*ptr1).height) //按照常规写法，应该用*号去取值，与下面一行的写法等价
     fmt.Println(ptr1.name, ptr1.sex, ptr1.height) //Go提供了一种隐式解引用特性，可以直接用`指针名.结构字段`的形式访问值
 

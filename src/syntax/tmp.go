@@ -35,11 +35,20 @@ func main()  {
     //另外两种引⽤类型 map、 channel 是指针包装，⽽不像 slice 是 struct。
 
 
+    //data := [...]int{0, 1, 2, 3, 4, 5, 6}
+    //slice := data[1:4:5]
+    //fmt.Println(len(slice), cap(slice))
 
+
+    s := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
+    s1 := s[2:5] // [2 3 4]
+    s2 := s1[2:6:7] // [4 5 6 7 0]  5
+    s3 := s2[3:6]
+    fmt.Println(s, s1, cap(s1), s2, cap(s2), s3)
 
 }
 
-func add(x,y int64) (int64) {
-    z = x + y
-    return z
-}
+//func add(x,y int64) (int64) {
+//    z = x + y
+//    return z
+//}
