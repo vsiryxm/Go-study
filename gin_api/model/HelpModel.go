@@ -59,7 +59,7 @@ func (h *Help) Add() (lastId int64, err error) {
 
 //修改记录
 func (h *Help) Update() (effect_num int64, err error) {
-    rs, err := SqlDB.Exec("UPDATE `?` SET `title`= ?,`content`= ? where `id`= ?", tableName, h.Title, h.Content, h.Id)
+    rs, err := SqlDB.Exec("UPDATE "+ tableName + " SET `title`= ?,`content`= ? where `id`= ?", h.Title, h.Content, h.Id)
     if err != nil {
         return
     }

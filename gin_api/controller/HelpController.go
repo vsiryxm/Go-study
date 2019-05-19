@@ -58,6 +58,7 @@ func GetHelpDetail(c *gin.Context)  {
 func AddHelp(c *gin.Context) {
     //content := c.PostForm("content") //获取单个参数
     //now := time.Now().UnixNano() / 1e9
+    //id := c.Param("id")  //Post请求获取不到值，只适合Get
     title := c.Request.FormValue("title")
     content := c.Request.FormValue("content")
 
@@ -83,8 +84,8 @@ func AddHelp(c *gin.Context) {
 
 //修改数据
 func UpdateHelp(c *gin.Context) {
-    id, err := strconv.Atoi(c.Param("id"))
-    title := c.Request.FormValue("title")
+    id, err := strconv.Atoi(c.Param("id")) //Param方法用于Get
+    title := c.Request.FormValue("title") //FormValue方法用于Post
     content := c.Request.FormValue("content")
     
     if err != nil {
