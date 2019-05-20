@@ -16,7 +16,7 @@ type Help struct {
 }
 
 //表名
-const tableName  = "vs_help"
+const tableName string = "vs_help"
 
 //获取列表
 func (h *Help) GetList(page int, limit int) (helps []Help, err error) {

@@ -7,6 +7,7 @@ import (
     . "../model"
     "log"
     "strconv"
+    . "../common"
 )
 //Index GetHelp GetHelpById AddHelp
 
@@ -20,9 +21,7 @@ func GetHelpList(c *gin.Context)  {
 
     var h Help
     helps, err := h.GetList(page, limit)
-    if err != nil {
-        log.Fatalln(err)
-    }
+    CheckError(err)
 
     c.JSON(http.StatusOK, gin.H{
         "code": 1,
@@ -35,7 +34,9 @@ func GetHelpList(c *gin.Context)  {
 //获取详情
 func GetHelpDetail(c *gin.Context)  {
     //content := c.PostForm("content")
-    id, _ := strconv.Atoi(c.Param("id"))
+    id, _ := strconv.Atoi(c.Param("id")) // help/2这样传值可以接收到
+    println("id=",id)
+    //println(c.Request.URL.Query().Get("id")) //?id=2这样传值可以接收到
     h := Help{Id: id}
     h.GetDetail()
     if h.Id > 0 {
@@ -64,10 +65,7 @@ func AddHelp(c *gin.Context) {
 
     h := Help{Title: title, Content: content}
     rs, err := h.Add()
-    if err != nil {
-        log.Fatalln(err)
-        return
-    }
+    CheckError(err)
 
     msg := fmt.Sprintf("insert success %d", rs)
     c.JSON(http.StatusOK, gin.H{
@@ -87,10 +85,8 @@ func UpdateHelp(c *gin.Context) {
     id, err := strconv.Atoi(c.Param("id")) //Param方法用于Get
     title := c.Request.FormValue("title") //FormValue方法用于Post
     content := c.Request.FormValue("content")
-    
-    if err != nil {
-        log.Fatalln(err)
-    }
+
+    CheckError(err)
 
     h := Help{Id: id}
     h.GetDetail()
