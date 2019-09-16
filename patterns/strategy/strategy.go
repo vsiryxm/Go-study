@@ -2,6 +2,7 @@ package strategy
 
 //策略者模式
 //定义：策略模式可以让更换对象的内脏，而装饰者模式可以更换对象的外表。我们可以定义算法，封装它们，动态地切换它们。
+//对比：模板模式与策略模式 https://segmentfault.com/a/1190000016199883
 
 type Operator interface {
 	Apply(int, int) int
