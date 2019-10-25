@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+//参考学习：https://www.jianshu.com/p/9d5636d34f17
 func Time()  {
 	//2006-01-02 15:04:05 GO的诞生时间
 
@@ -137,4 +138,10 @@ func Time()  {
 	dst = time.Unix(int64(1572082613), 0) //2019-10-26 17:36:53
 	isOk = t.After(dst)
 	fmt.Printf("目标时间%d比现在时间%d小（过去）吗？%v\n", dst.Unix(), t.Unix(), isOk) //结果：true
+//Add
+	t_new := t.AddDate(0, 1, 1)
+	fmt.Println("'t.AddDate': ", t_new)
+
+	t_new2 := t.Sub(dst)
+	fmt.Println("'t.AddDate': ", t_new2)
 }
