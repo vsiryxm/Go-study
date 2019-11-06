@@ -1,8 +1,11 @@
-package strings
+package json
 
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"strings"
+	"io"
 )
 
 func Json() {
@@ -28,7 +31,7 @@ func Json() {
 	}
 
 	myFamily := MyFamily{
-		Addess: "湖南省新化县上渡办事处新城社区",
+		Address: "湖南省新化县上渡办事处新城社区",
 		Member: []Person{
 			member1,
 		},
@@ -72,8 +75,8 @@ type Person struct {
 }
 
 type MyFamily struct {
+	Address string   `json:"address"`
 	Member []Person `json:"member"`
-	Addess string   `json:"address"`
 }
 
 //json转结构体
@@ -124,15 +127,8 @@ var myFamily = MyFamily{
 // 结构体转json
 func StructToJson() {
 	//var json = jsoniter.ConfigCompatibleWithStandardLibrary
-	i:=0
-	for {
-		bytes, _ := json.Marshal(myFamily)
-		fmt.Printf("结构体转json：%s\n", bytes)
-		if i>10000  {
-			break
-		}
-		i++
-	}
+	bytes, _ := json.Marshal(myFamily)
+	fmt.Printf("结构体转json：%s\n", bytes)
 
 }
 
@@ -301,19 +297,6 @@ func JsonX()  {
 	enc := json.NewEncoder(os.Stdout)
 	d := map[string]int{"apple": 5, "lettuce": 7}
 	enc.Encode(d)
-}
-
-type Person struct {
-	Name    string              `json:"name"`
-	Sex     string              `json:"sex"`
-	Age     int                 `json:"age"`
-	IsMarry bool                `json:"is_marry"`
-	Phone   map[string][]string `json:"phone"`
-}
-
-type MyFamily struct {
-	Address string   `json:"address"`
-	Member  []Person `json:"member"`
 }
 
 type Message struct {
