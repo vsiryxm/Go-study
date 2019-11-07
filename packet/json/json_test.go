@@ -6,9 +6,9 @@ import (
 )
 
 func TestJson(test *testing.T) {
-	//JsonToStruct()
+	JsonToStruct()
 	StructToJson()
-	//ReadJsonFile()  //读json文件
-	//WriteJsonFile() //写json文件
-	JsonX()
+	ReadJsonFile()  //读json文件
+	WriteJsonFile() //写json文件
+	SendcondParse()
 }

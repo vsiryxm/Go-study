@@ -7,6 +7,7 @@ import (
 	"io"
 	"os"
 	"strings"
+	"reflect"
 )
 
 //json转结构体
@@ -17,11 +18,11 @@ func JsonToStruct() {
 		{"id": 3, "name": "Simon"}
 		{"id": 4, "name": "欧阳新民"}
 		{"id": 5, "name": "海阳"}
-	` //里面大小写都可以解析正确，如NaMe
+	` //变量名忽略大小写，都可以解析正确，如NaMe
 	//从一个输入流中读取并进行解码json的值
 	//初始化一个Decoder对象
 	//var json = jsoniter.ConfigCompatibleWithStandardLibrary
-	dec := json.NewDecoder(strings.NewReader(jsonStream))
+	dec := json.NewDecoder(strings.NewReader(jsonStream)) //strings.Reader类型是为了高效读取字符串而存在的
 	for {
 		var m Message
 		//创建的decoder对象的Decode方法可以将内容解析到接口v中
@@ -57,15 +58,8 @@ var myFamily = MyFamily{
 // 结构体转json
 func StructToJson() {
 	//var json = jsoniter.ConfigCompatibleWithStandardLibrary
-	i:=0
-	for {
-		bytes, _ := json.Marshal(myFamily)
-		fmt.Printf("结构体转json：%s\n", bytes)
-		if i>10000  {
-			break
-		}
-		i++
-	}
+	bytes, _ := json.Marshal(myFamily)
+	fmt.Printf("结构体转json：%s\n", bytes)
 
 }
 
@@ -91,6 +85,11 @@ func ReadJsonFile() {
 		jsonShow, _ := json.MarshalIndent(myFamily, "", "    ")
 		fmt.Println("解码结果为：\n", string(jsonShow))
 	}
+
+	varType := reflect.TypeOf(myFamily.Member[0].IsMarry)
+	fmt.Println("通过反射来查询结构体成员的数据类型：", varType)
+	//结果：通过反射来查询结构体成员的数据类型： bool
+
 }
 
 //写入json文件
@@ -134,6 +133,35 @@ func WriteJsonFile() {
 	filePtr.Write(data)
 }
 
+//json二次解析
+func SendcondParse()  {
+	//如果不想指定Member变量为具体的类型，但仍然想保留interface{}类型，
+	//且又希望该变量可以解析到struct Person对象中，这时候该怎么办呢？
+	//可以将 Member 指定为 json.RawMessage
+	type MyFamily2 struct {
+		Address string   `json:"address"`
+		Member json.RawMessage `json:"member"`
+	}
+
+	jsonStr := "{\"address\":\"湖南新化梅苑开发区\",\"member\":[{\"name\":\"海阳之新\",\"sex\":\"男\",\"age\":35,\"is_marry\":true,\"phone\":{\"china_mobile\":[\"13771739166\",\"15916689566\"],\"china_telecom\":[\"18971739166\",\"18916689566\"]}}]}"
+	str:=[]byte(jsonStr)
+	myFamily2 := MyFamily2{}
+	json.Unmarshal(str, &myFamily2)
+	fmt.Println("第一次解码结果为：\n", myFamily2)
+	/* 结果：
+		{湖南新化梅苑开发区 [91 123 34 110 97 109 101 34 58 34 230 181 183 233 152 179 228 185 139 230 150 176 34 44 34 115 101 120 34 58 3
+	   4 231 148 183 34 44 34 97 103 101 34 58 51 53 44 34 105 115 95 109 97 114 114 121 34 58 116 114 117 101 44 34 112 104 111 110 101 34
+		58 123 34 99 104 105 110 97 95 109 111 98 105 108 101 34 58 91 34 49 51 55 55 49 55 51 57 49 54 54 34 44 34 49 53 57 49 54 54 56 57
+		53 54 54 34 93 44 34 99 104 105 110 97 95 116 101 108 101 99 111 109 34 58 91 34 49 56 57 55 49 55 51 57 49 54 54 34 44 34 49 56 57
+		49 54 54 56 57 53 54 54 34 93 125 125 93]}
+	*/
+	member := []Person{}
+	json.Unmarshal(myFamily2.Member, &member)
+	fmt.Println("第二次解码结果为：\n", member)
+	/* 结果：
+	   [{海阳之新 男 35 true map[china_mobile:[13771739166 15916689566] china_telecom:[18971739166 18916689566]]}]
+	*/
+}
 
 
 type Response1 struct {
@@ -237,16 +265,16 @@ func JsonX()  {
 }
 
 type Person struct {
-	Name    string              `json:"name"`
-	Sex     string              `json:"sex"`
-	Age     int                 `json:"age"`
+	Name    string              `json:"name"` //如果有json标签，struct转换成json时，key用标签里的名字，否则与结构体成员变量名字一致
+	Sex     string              `json:"sex"` //如果key为小写，则为私有，struct转换成json时不输出
+	Age     int                 `json:"age"` //如果两个成员的json标签都是一样的名字，接收数据时将导致两个值都为nil
 	IsMarry bool                `json:"is_marry"`
 	Phone   map[string][]string `json:"phone"`
 }
 
 type MyFamily struct {
 	Address string   `json:"address"`
-	Member  []Person `json:"member"`
+	Member  []Person `json:"member"` //当数据结构不明确时，[]Person也可以用interface{}代替
 }
 
 type Message struct {
