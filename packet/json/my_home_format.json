@@ -4,6 +4,7 @@
         {
             "name": "海阳之新",
             "sex": "男",
+            "birthday": "1985-10-10",
             "age": 35,
             "is_marry": true,
             "phone": {

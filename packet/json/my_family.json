@@ -4,6 +4,7 @@
     {
       "name": "海阳之新",
       "sex": "男",
+      "birthday": "1985-10-10",
       "age": 35,
       "is_marry": true,
       "phone": {
@@ -14,6 +15,7 @@
     {
       "name": "海洋之心",
       "sex": "男",
+      "birthday": "1988-10-10",
       "age": 32,
       "is_marry": false,
       "phone": {
@@ -24,6 +26,7 @@
     {
       "name": "阳小斯",
       "sex": "男",
+      "birthday": "1991-10-10",
       "age": 29,
       "is_marry": true,
       "phone": {

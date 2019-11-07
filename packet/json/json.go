@@ -2,13 +2,68 @@ package json
 
 import (
 	"encoding/json"
-	//"github.com/json-iterator/go"
 	"fmt"
 	"io"
 	"os"
-	"strings"
 	"reflect"
+	"strings"
 )
+
+func Json() {
+
+	phone1 := map[string][]string{
+		"china_mobile": []string{
+			"13771739111",
+			"15216689566",
+		},
+		"china_telecom": []string{
+			"18911112222",
+			"18911113333",
+		},
+	}
+
+	member1 := Person{
+		Name:     "海阳之新",
+		Sex:      "男",
+		Birthday: "1985-10-24",
+		Age:      35,
+		IsMarry:  true,
+		Phone:    phone1,
+	}
+
+	myFamily := MyFamily{
+		Address: "湖南省新化县上渡办事处新城社区",
+		Member: []Person{
+			member1,
+		},
+	}
+
+	//将结构体转换成json
+	res, err := json.Marshal(myFamily)
+	res2, _ := json.MarshalIndent(myFamily, "", "    ") //格式化输出json
+	if err != nil {
+		fmt.Println("错误:", err)
+	} else {
+		fmt.Println(string(res))
+		//结果：{"member":[{"name":"海阳之新","sex":"男","birthday":"1985-10-24","Age":35,"IsMarry":true,"Phone":{"china_mobile":["13771739111","15216689566"],"china_telecom":["18911112222","18911113333"]}}],"address":"湖南省新化县梅苑开发区"}
+		fmt.Println(string(res2))
+		//结果：会按json的格式换行缩进显示
+	}
+
+	var jsonStr = []byte(`{"member":[{"name":"海阳之新","sex":"男","birthday":"1985-10-24","Age":35,"IsMarry":true,"Phone":{"china_mobile":["13771739111","15216689566"],"china_telecom":["18911112222","18911113333"]}}],"address":"湖南省新化县梅苑开发区"}`)
+	myFamily2 := MyFamily{}
+
+	err = json.Unmarshal(jsonStr, &myFamily2) //将json字符串转为结构体，注意：第二个参数为指针
+	if err != nil {
+		fmt.Println("错误:", err)
+	} else { //myFamily2
+		fmt.Println(string(res))
+	}
+	var tmp []string
+	tmp = myFamily2.Member[0].Phone["china_mobile"]
+	fmt.Println(tmp)
+
+}
 
 //json转结构体
 func JsonToStruct() {
@@ -43,10 +98,11 @@ var myFamily = MyFamily{
 	Address: "湖南新化梅苑开发区",
 	Member: []Person{
 		Person{
-			Name:    "海阳之新",
-			Sex:     "男",
-			Age:     35,
-			IsMarry: true,
+			Name:     "海阳之新",
+			Sex:      "男",
+			Birthday: "1985-10-10",
+			Age:      35,
+			IsMarry:  true,
 			Phone: map[string][]string{
 				"china_mobile":  []string{"13771739166", "15916689566"},
 				"china_telecom": []string{"18971739166", "18916689566"},
@@ -134,17 +190,17 @@ func WriteJsonFile() {
 }
 
 //json二次解析
-func SendcondParse()  {
+func SendcondParse() {
 	//如果不想指定Member变量为具体的类型，但仍然想保留interface{}类型，
 	//且又希望该变量可以解析到struct Person对象中，这时候该怎么办呢？
 	//可以将 Member 指定为 json.RawMessage
 	type MyFamily2 struct {
-		Address string   `json:"address"`
-		Member json.RawMessage `json:"member"`
+		Address string          `json:"address"`
+		Member  json.RawMessage `json:"member"`
 	}
 
-	jsonStr := "{\"address\":\"湖南新化梅苑开发区\",\"member\":[{\"name\":\"海阳之新\",\"sex\":\"男\",\"age\":35,\"is_marry\":true,\"phone\":{\"china_mobile\":[\"13771739166\",\"15916689566\"],\"china_telecom\":[\"18971739166\",\"18916689566\"]}}]}"
-	str:=[]byte(jsonStr)
+	jsonStr := "{\"address\":\"湖南新化梅苑开发区\",\"member\":[{\"name\":\"海阳之新\",\"sex\":\"男\",\"birthday\":\"1985-10-10\",\"age\":35,\"is_marry\":true,\"phone\":{\"china_mobile\":[\"13771739166\",\"15916689566\"],\"china_telecom\":[\"18971739166\",\"18916689566\"]}}]}"
+	str := []byte(jsonStr)
 	myFamily2 := MyFamily2{}
 	json.Unmarshal(str, &myFamily2)
 	fmt.Println("第一次解码结果为：\n", myFamily2)
@@ -159,10 +215,9 @@ func SendcondParse()  {
 	json.Unmarshal(myFamily2.Member, &member)
 	fmt.Println("第二次解码结果为：\n", member)
 	/* 结果：
-	   [{海阳之新 男 35 true map[china_mobile:[13771739166 15916689566] china_telecom:[18971739166 18916689566]]}]
+	   [{海阳之新 男 1985-10-10 35 true map[china_mobile:[13771739166 15916689566] china_telecom:[18971739166 18916689566]]}]
 	*/
 }
-
 
 type Response1 struct {
 	Page   int
@@ -173,7 +228,7 @@ type Response2 struct {
 	Fruits []string `json:"fruits"`
 }
 
-func JsonX()  {
+func JsonX() {
 	bolB, _ := json.Marshal(true)
 	fmt.Println(string(bolB))
 
@@ -207,8 +262,8 @@ func JsonX()  {
 	fmt.Println(string(res1B))
 
 	res2D := &Response2{
-	Page:   1,
-	Fruits: []string{"apple", "peach", "pear"}}
+		Page:   1,
+		Fruits: []string{"apple", "peach", "pear"}}
 	res2B, _ := json.Marshal(res2D)
 	fmt.Println(string(res2B))
 
@@ -226,7 +281,7 @@ func JsonX()  {
 	// Here's the actual decoding, and a check for
 	// associated errors.
 	if err := json.Unmarshal(byt, &dat); err != nil {
-	panic(err)
+		panic(err)
 	}
 	fmt.Println(dat)
 
@@ -265,19 +320,83 @@ func JsonX()  {
 }
 
 type Person struct {
-	Name    string              `json:"name"` //如果有json标签，struct转换成json时，key用标签里的名字，否则与结构体成员变量名字一致
-	Sex     string              `json:"sex"` //如果key为小写，则为私有，struct转换成json时不输出
-	Age     int                 `json:"age"` //如果两个成员的json标签都是一样的名字，接收数据时将导致两个值都为nil
-	IsMarry bool                `json:"is_marry"`
-	Phone   map[string][]string `json:"phone"`
+	Name     string              `json:"name"` //如果有json标签，struct转换成json时，key用标签里的名字，否则与结构体成员变量名字一致
+	Sex      string              `json:"sex"`  //如果key为小写，则为私有，struct转换成json时不输出
+	Birthday string              `json:"birthday"`
+	Age      int                 `json:"age"` //如果两个成员的json标签都是一样的名字，接收数据时将导致两个值都为nil
+	IsMarry  bool                `json:"is_marry"`
+	Phone    map[string][]string `json:"phone"`
 }
 
 type MyFamily struct {
-	Address string   `json:"address"`
-	Member  []Person `json:"member"` //当数据结构不明确时，[]Person也可以用interface{}代替
+	Address string   `json:"address"` //json标签，如果这样声明`json:"name,omitempty"`，这个字段没有值时，不会填充
+	Member  []Person `json:"member"`  //当数据结构不明确时，[]Person也可以用interface{}代替
 }
 
 type Message struct {
 	Id   int    `json:"id"`
 	Name string `json:"name"`
 }
+
+//参考：
+
+/*
+
+{
+    "addess": "湖南省新化县梅苑开发区",
+    "member": [
+        {
+            "name": "海阳之新",
+            "sex": "男",
+            "birthday":"1985-10-10"
+            "age": 35,
+            "is_marry": true,
+            "phone": [
+                "china_mobile": [
+                     "13771739111",
+                     "15216689566"
+                 ],
+                "china_telecom": [
+                     "18911112222",
+                     "18911113333"
+                 ]
+             ]
+        },
+        {
+            "name": "海洋之心",
+            "sex": "男",
+            "birthday":"1988-11-09"
+            "age": 32,
+            "is_marry": false,
+            "phone": [
+                "china_mobile": [
+                     "13771739188",
+                     "15216689566"
+                 ],
+                "china_telecom": [
+                     "18911112222",
+                     "18911113333"
+                 ]
+             ]
+        },
+        {
+            "name": "阳小斯",
+            "sex": "男",
+            "birthday":"1991-01-17"
+            "age": 29,
+            "is_marry": true,
+            "phone": [
+                "china_mobile": [
+                     "13771739668",
+                     "15216689123"
+                 ],
+                "china_telecom": [
+                     "189111166666",
+                     "189111177777",
+                 ]
+             ]
+        },
+    ]
+}
+
+*/
