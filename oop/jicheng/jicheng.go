@@ -22,6 +22,7 @@ type Student struct {
 
 func Fun1() {
 
+   //参考：https://www.cnblogs.com/nulige/p/10248986.html
 	//第一种调用方式
 	s1 := Student{&Person{"海阳之新", 'm', 34}, 100, "华师大"}
 	fmt.Println("结构体指针 第一种调用方式：")
