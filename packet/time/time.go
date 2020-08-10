@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func Time()  {
+func Time() {
 	//2006-01-02 15:04:05 GO的诞生时间
 
 	//注意：time.Unix有两个参数，是将时间戳(或叫int64整数)转换成Time对象；
@@ -18,10 +18,10 @@ func Time()  {
 	fmt.Printf("时间: %v, 时区: %v, 时间类型: %T\n", t, t.Location(), t) //实用
 	//结果：时间: 2019-10-26 16:17:54.9133283 +0800 CST m=+0.004000201, 时区: Local, 时间类型: time.Time
 
-	ss := t.Unix() //单位s
-	ms := t.UnixNano()/int64(time.Millisecond) //单位ms
-	us := t.UnixNano()/int64(time.Microsecond) //单位us
-	ns := t.UnixNano() //单位ns
+	ss := t.Unix()                               //单位s
+	ms := t.UnixNano() / int64(time.Millisecond) //单位ms
+	us := t.UnixNano() / int64(time.Microsecond) //单位us
+	ns := t.UnixNano()                           //单位ns
 
 	fmt.Printf("当前时间戳（10位，即s ）为：%d \n", ss)
 	//结果：当前时间戳（10位，即s ）为：1572077874
@@ -36,7 +36,7 @@ func Time()  {
 	fmt.Printf("本地时区: %v\n", t.Location())
 	//结果：本地时区: Local
 
-	zoneName, s:= t.Zone()
+	zoneName, s := t.Zone()
 	fmt.Printf("本地时区: %s，比格林威治时间快：%d秒\n", zoneName, s) //28800秒(s)=8时(h)
 	//结果：本地时区: CST，比格林威治时间快：28800秒
 
@@ -116,18 +116,22 @@ func Time()  {
 	fmt.Printf("时间戳%s转换成日期字符串为：%s\n", tsStr, dateStr)
 	//结果：时间戳1572079137转换成日期字符串为：2019/10/26 16:38:57
 
+	dateStr = theDay.Format("2006/01/02") //模版：2006-01-02
+	fmt.Printf("时间戳%s转换成日期字符串为：%s\n", tsStr, dateStr)
+	//结果：时间戳1572079137转换成日期字符串为：2019/10/26
+
 	dst := time.Unix(int64(4128226613), 0) //2100-10-26 17:36:53
-	isOk := t.Before(dst) //相当于if t < dst {}
+	isOk := t.Before(dst)                  //相当于if t < dst {}
 	fmt.Printf("当前时间%d比目标时间%d要小吗？%v\n", t.Unix(), dst.Unix(), isOk)
 	//结果：当前时间1572072745比目标时间4128226613要小吗？true
 
 	dst = time.Unix(int64(1571986325), 0) //2019-10-25 14:52:05
-	isOk = t.After(dst) //相当于if t > dst {}
+	isOk = t.After(dst)                   //相当于if t > dst {}
 	fmt.Printf("当前时间%d比目标时间%d要大吗？%v\n", t.Unix(), dst.Unix(), isOk)
 	//结果：当前时间1572072745比目标时间1571986325要大吗？true
 
 	dst = time.Unix(int64(1571986325), 0) //2019-10-25 14:52:05
-	isOk = dst.Equal(dst) //相当于if dst == dst {}
+	isOk = dst.Equal(dst)                 //相当于if dst == dst {}
 	fmt.Printf("%d与%d相等吗？%v\n", dst.Unix(), dst.Unix(), isOk)
 	//结果：1571986325与1571986325相等吗？true
 
@@ -182,7 +186,6 @@ func Time()  {
 	t_new := dst.AddDate(1, 1, 1)
 	fmt.Printf("%s + 1年1月1天 = %s\n", dst.Format("2006-01-02 15:04:05"), t_new.Format("2006-01-02 15:04:05"))
 	//结果：2019-10-25 14:52:05 + 1年1月1天 = 2020-11-26 14:52:05
-
 
 	// 时间序列化
 	t_byte, _ := t.MarshalJSON()
