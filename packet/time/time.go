@@ -110,7 +110,7 @@ func Time() {
 
 	tsStr := "1572079137" //（实用）2019-10-26 16:38:57
 	tsInt64, _ := strconv.ParseInt(tsStr, 10, 64)
-	theDay = time.Unix(tsInt64, 0) //获取时间戳
+	theDay = time.Unix(tsInt64, 0) //时间戳转time.Time格式
 	//time.Unix(tmp, 0)
 	dateStr = theDay.Format("2006/01/02 15:04:05") //模版：2006-01-02 15:04:05
 	fmt.Printf("时间戳%s转换成日期字符串为：%s\n", tsStr, dateStr)
@@ -186,12 +186,12 @@ func Time() {
 	t_new := dst.AddDate(1, 1, 1)
 	fmt.Printf("%s + 1年1月1天 = %s\n", dst.Format("2006-01-02 15:04:05"), t_new.Format("2006-01-02 15:04:05"))
 	//结果：2019-10-25 14:52:05 + 1年1月1天 = 2020-11-26 14:52:05
-	
+
 	// 时间比较：指定日期是否在今天范围内
 	nowTime := time.Now().Local()
 	beginTime := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 0, 0, 0, 0, time.Local)          // 获取一个今天 00:00:00:00的日期
 	endTime := time.Date(nowTime.Year(), nowTime.Month(), nowTime.Day(), 23, 59, 59, 999999999, time.Local) // 获取一个今天 23:59:59:999999999的日期
-        createdAt := time.Date(2023, 6, 7, 12, 0, 0, 0, time.Local)
+	createdAt := time.Date(2023, 6, 7, 12, 0, 0, 0, time.Local)
 	isToday := createdAt.After(beginTime) && createdAt.Before(endTime) // 即 > && <
 	fmt.Println("isToday=", isToday)
 	// 结果：true
