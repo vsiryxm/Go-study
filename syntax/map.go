@@ -42,6 +42,18 @@ func main() {
 	delete(city, "shanghai")
 	fmt.Println("shanghai被删除：", city)
 
+	// 利用map来查询重复数据
+	counts := make(map[string]int)
+	stageNames := []string{"海阳之新", "东胖", "xinmin", "东胖", "vsiryxm", "海阳之新", "海阳之新"}
+	for _, v := range stageNames {
+		counts[v]++
+	}
+	for m, n := range counts {
+		if n > 1 {
+			fmt.Printf("%s重复了，有%d个\n", m, n)
+		}
+	}
+
 }
 
 // 查找元素是否存在于map中
