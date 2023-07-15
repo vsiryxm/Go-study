@@ -13,6 +13,7 @@ func main() {
 
 	var a uint8 = 90
 	//第一种使用方法：如果条件放在case中，那么switch后面不带任何条件表达式
+	//这种形式叫做无tag switch(tagless switch)；这和switch true是等价的 ——GO语言圣经P48
 	switch {
 	case a >= 60 && a < 70:
 		fmt.Println("及格")
@@ -42,12 +43,14 @@ func main() {
 
 	//var myname string = "欧阳"
 	switch myname := "欧阳"; { //可以带初始化语句
-	case myname=="欧阳":
-		if(myname!="欧阳") { break } //也可以手工增加break操作
+	case myname == "欧阳":
+		if myname != "欧阳" {
+			break
+		} //也可以手工增加break操作
 		fmt.Println("你是欧阳") //默认自动加break
-	case myname=="Ella":
+	case myname == "Ella":
 		fmt.Println("你是Ella")
-	case myname=="大明":
+	case myname == "大明":
 		fmt.Println("你是大明")
 	default: //可写可不写
 		fmt.Println("辉哥")

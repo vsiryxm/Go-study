@@ -7,8 +7,11 @@ package main
 
 import (
 	"fmt"
-	"mylib/calc" //包所在的文件夹路径，先去找GOROOT/src/mylib/calc文件夹，再去找GOPATH/src/mylib/calc文件夹
+	// "mylib/calc" //包所在的文件夹路径，先去找GOROOT/src/mylib/calc文件夹，再去找GOPATH/src/mylib/calc文件夹
+	"strconv"
 )
+
+type PAI float64
 
 func main() {
 
@@ -18,16 +21,17 @@ func main() {
 	fmt.Println(a, b, strs)
 
 	fmt.Println("\n在不同的包下，调用函数：")
-	c := calc.Add(a, b) //调用格式：包名.方法名（参数1，参数2...），函数首字母必须大写才能被调用（相当于public）
+	c := 0
+	// c := calc.Add(a, b) //调用格式：包名.方法名（参数1，参数2...），函数首字母必须大写才能被调用（相当于public）
 	fmt.Printf("a + b = %d\n", c)
 
 	fmt.Println("\n不确定的多个参数调用函数：")
-	if err := is_odd_number(1,3,5,7,9,10); err != nil {
+	if err := is_odd_number(1, 3, 5, 7, 9, 10); err != nil {
 		fmt.Println(err)
 	}
 
 	fmt.Println("\n通过传递引用，交换两个变量的值：")
-	var aa,bb int64 = 10,20
+	var aa, bb int64 = 10, 20
 	fmt.Printf("交换前，aa=%d，bb=%d\n", aa, bb)
 	swap(&aa, &bb)
 	fmt.Printf("交换后，aa=%d，bb=%d\n", aa, bb)
@@ -37,12 +41,15 @@ func main() {
 	fn()
 
 	fmt.Println("--很怪的用法：定义调用函数数组--")
-	fns := [](func(x int) int) {
-		func(x int) int { return x+1 },
-		func(x int) int { return x+2 },
+	fns := [](func(x int) int){
+		func(x int) int { return x + 1 },
+		func(x int) int { return x + 2 },
 	}
 	println(fns[1](100))
 
+	fmt.Println("--把函数作为一个对象的方法来使用--")
+	var pai PAI = 3.1415926
+	fmt.Println(pai.ToString())
 }
 
 func multiReturn(a int64) (int64, int64, int64, string) { //小写开头的函数相当于private
@@ -50,11 +57,11 @@ func multiReturn(a int64) (int64, int64, int64, string) { //小写开头的函�
 	return a, int64(b), int64(c), d //Go中不存在隐式转换，所有类型转换必须显式声明，且转换只能发生在两种相互兼容的类型之间
 }
 
-//传递多个不确定的参数的函数定义方法，用...省略号
-//是否为奇数
+// 传递多个不确定的参数的函数定义方法，用...省略号
+// 是否为奇数
 func is_odd_number(n ...int) error {
 	for _, i := range n {
-		if i % 2 == 0 {
+		if i%2 == 0 {
 			return fmt.Errorf("不是奇数", n)
 		}
 		fmt.Print(i, "是奇数\n")
@@ -62,10 +69,14 @@ func is_odd_number(n ...int) error {
 	return nil
 }
 
-//通过传递引用，交换两个变量的值
+// 通过传递引用，交换两个变量的值
 func swap(x *int64, y *int64) {
 	var tmp int64
 	tmp = *x
 	*x = *y
 	*y = tmp
+}
+
+func (n PAI) ToString() string {
+	return strconv.FormatFloat(float64(n), 'f', 2, 64)
 }

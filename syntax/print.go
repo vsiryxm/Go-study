@@ -12,6 +12,9 @@ func main() {
 	//fmt.Printf(aaa()); //会报错，不能这样直接输出，必须使用占位符配合输出
 	n := 234
 	fmt.Print(fmt.Errorf("出错了", n))
+
+	// 在fmt.Printf中输出%，需要用到%%
+	fmt.Printf("张三占的股份比例为：20%%\n")
 }
 
 func aaa() int32 {

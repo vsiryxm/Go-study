@@ -74,3 +74,25 @@ str += "字符串拼接，每次拼接，都会丢弃str原来的内容，如果
 
 --- 
 读完P26
+
+ map的迭代顺序并不确定，从实践来看，该顺序随机，每次运行都会变化。这种设计是有意为之的，因为能防止程序依赖特定 遍历顺序，而这是无法保证的。
+
+ rand.Seed(time.Now().UTC().UnixNano()) //使用纳秒作为随机种子来保证随机性
+
+ go的内置函数收集：
+    append          -- 用来追加元素到数组、slice中,返回修改后的数组、slice
+    close           -- 主要用来关闭channel
+    delete            -- 从map中删除key对应的value
+    panic            -- 停止常规的goroutine  （panic和recover：用来做错误处理）
+    recover         -- 允许程序定义goroutine的panic动作
+    imag            -- 返回complex的实部   （complex、real imag：用于创建和操作复数）
+    real            -- 返回complex的虚部
+    make            -- 用来分配内存，返回Type本身(只能应用于slice, map, channel)
+    new                -- 用来分配内存，主要用来分配值类型，比如int、struct。返回指向Type的指针
+    cap                -- capacity是容量的意思，用于返回某个类型的最大容量（只能用于切片和 map）
+    copy            -- 用于复制和连接slice，返回复制的数目
+    len                -- 来求长度，比如string、array、slice、map、channel ，返回长度
+    print、println     -- 底层打印函数，在部署环境中建议使用 fmt 包
+
+另一个在线教程：
+    https://www.topgoer.com/go%E5%9F%BA%E7%A1%80/Golang%E5%86%85%E7%BD%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%87%BD%E6%95%B0.html
