@@ -7,6 +7,7 @@ package main
 
 import (
 	"fmt"
+	"unicode/utf8"
 )
 
 func main() {
@@ -31,12 +32,28 @@ func main() {
 	//可以用索引号访问某字节
 	fmt.Println(str4[0]) //97  为a的ascii码
 
+	//将一个整数通过string来转换，会当成Ascii码来转换成字符
+	fmt.Println(string(65)) // A
+
+	fmt.Println(int('A')) // 65
+
 	//原生字符串，即用反引号括起来的字符串，在原生字符串中转义字符不会转义输出，而是原样输出
 	//原生字符串正文内容不能包含`，但可以换成8进制或16进制使用+号拼接
 	//应用场景：原生字符串面值用于编写正则表达式会很方便，因为正则表达式往往会包含很多反斜杠。
 	//原生字符串面值同时被广泛应用于HTML模板、JSON面值、命令行提示信息以及那些需要扩展到多行的场景。
 	fmt.Println(`\n我在反引号里就不转义了哦
 	但换行与空格会保留输出
+	`)
+
+	fmt.Println(`
+	{
+		"code": 0,
+		"msg": "OK",
+		"data": {
+			"areacode": 86,
+			"mobile": "19918956336"
+		}
+	}
 	`)
 
 	//截取字符串，通过切片的形式对rune
@@ -70,5 +87,33 @@ func main() {
 	for _, r := range ss3 { //rune
 		fmt.Printf("%c,", r)
 	}
+	fmt.Println()
+
+	// 在一个字符串中有中英文时，使用range遍历可以隐式地解码，也可以显式地调用utf8.DecodeRuneInString解码
+	ss4 := "Hello,世界"
+	for i, r := range ss4 {
+		fmt.Printf("%d\t%q\t%d\n", i, r, r)
+	}
+	/*
+		返回结果：
+		0       'H'     72
+		1       'e'     101
+		2       'l'     108
+		3       'l'     108
+		4       'o'     111
+		5       ','     44
+		6       '世'    19990
+		9       '界'    30028
+	*/
+
+	// 使用range统计中英文字符串的字符个数
+	str := "Hello,世界"
+	fmt.Println("length1=", len(str)) // len()函数并不是指字符个数，而是字节长度，这里返回的是12个字节长度，在utf8编码中，汉字占3个字节
+	length := 0
+	for range str { // for range 还可以省略k，v
+		length++
+	}
+	fmt.Println("length2=", length)                      // 返回8个字符长度
+	fmt.Println("length3=", utf8.RuneCountInString(ss4)) // 8
 
 }
